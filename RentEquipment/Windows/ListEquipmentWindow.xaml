@@ -1,0 +1,44 @@
+﻿<Window x:Class="RentEquipment.Windows.ListEquimentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentEquipment.Windows"
+        mc:Ignorable="d"
+        Title="ListEquimentWindow"  Height="800" Width="1200"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+    ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+           Text="Список оборудования"
+           FontSize="30"
+           FontWeight="Light"
+           TextAlignment="Center"
+           FontFamily="helvetica"
+            ></TextBlock>
+
+        <ListView
+            Grid.Row="2"
+            x:Name="lvEquipment">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Код" Width="70" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Продукт" Width="150" DisplayMemberBinding="{Binding Product1}"/>
+                    <GridViewColumn Header="Описание" Width="150" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Header="Стоимость" Width="150" DisplayMemberBinding="{Binding Cost}"/>
+                    <GridViewColumn Header="Тип продукта" Width="150" DisplayMemberBinding="{Binding TypeProduct.TypeProduct1}"/>
+                    <GridViewColumn Header="Гарантия" Width="150" DisplayMemberBinding="{Binding Warranty}"/>
+                    <GridViewColumn Header="Статус аренды" Width="150" DisplayMemberBinding="{Binding IsRent}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

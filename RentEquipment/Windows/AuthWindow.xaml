@@ -1,0 +1,93 @@
+﻿<Window x:Class="RentEquipment.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentEquipment.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AuthWindow"
+        Height="600" 
+        MinHeight="600"
+        MaxHeight="600"
+        Width="450"
+        MaxWidth="450"
+        MinWidth="450"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+    ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid>
+        <StackPanel>
+            <TextBlock
+                Text="Authorization"
+                FontSize="25"
+                Margin="0 20 0 0"
+                HorizontalAlignment="Center" 
+                FontWeight="Light"
+                FontFamily="helvetica"
+                ></TextBlock>
+
+            
+                <TextBlock
+                Text="Login :"
+                FontSize="20"
+                     FontWeight="Light"
+                FontFamily="helvetica"
+               Margin="86 80 0 0"
+                HorizontalAlignment="Left"               
+                ></TextBlock>
+            
+                <TextBox
+                    x:Name="Logintxt"
+                    Width="270"
+                    TextAlignment="Left"
+                    FontSize="25"     
+                    FontWeight="Light"
+                    FontFamily="helvetica"
+                    BorderBrush="Black"
+                    HorizontalAlignment="Center"
+                
+                    ></TextBox>
+                
+         
+            
+                <TextBlock
+                Text="Passwrod :"
+                FontSize="20"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                Margin="86 30 0 0"
+                HorizontalAlignment="Left"              
+                ></TextBlock>
+                <PasswordBox
+                    x:Name="Passwordtxt"
+                Width="270"
+                    FontSize="25"
+                    BorderBrush="Black"
+                    HorizontalAlignment="Center"
+                   
+                    ></PasswordBox>
+
+
+            <Button
+                x:Name="LoginBtn"
+                Click="LoginBtn_Click"
+                Width="200"
+                Margin="0 150 0 0"
+                Content="Login"
+                FontSize="25"
+                FontWeight="Light"
+                Background="Transparent"
+                BorderThickness="1"
+                BorderBrush="Black"
+                FontFamily="helvetica"
+                HorizontalAlignment="Center"
+                Height="40"
+                
+                ></Button>
+
+
+
+        </StackPanel>
+        
+    </Grid>
+</Window>

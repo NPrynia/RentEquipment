@@ -1,0 +1,131 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentEquipment.Windows"
+        xmlns:hc="https://handyorg.github.io/handycontrol" x:Class="RentEquipment.Windows.ListEmployeeWindow"
+        mc:Ignorable="d"
+        Title="ListEmployeeWindow"
+        WindowStartupLocation="CenterScreen"
+        Height="800" Width="1200"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+           Text="Список сотрудников"
+           FontSize="30"
+           FontWeight="Light"
+           TextAlignment="Center"
+            />
+
+
+        <ListView
+            Grid.Row="2"
+            x:Name="lvEmployee"
+            KeyDown="lvEmployee_KeyDown"
+            KeyUp="lvEmployee_KeyUp"
+            MouseDoubleClick="lvEmployee_MouseDoubleClick"
+            >
+            <ListView.View  >
+                <GridView>
+                    <GridViewColumn Header="Код" Width="70" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Фамилия" Width="150" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding SecondName}"/>
+                    <GridViewColumn Header="Отчесвто" Width="150" DisplayMemberBinding="{Binding Patronymic}"/>
+                    <GridViewColumn Header="Логин" Width="150" DisplayMemberBinding="{Binding Login}"/>
+                    <GridViewColumn Header="Должность" Width="150" DisplayMemberBinding="{Binding Role.Role1}"/>
+                    <GridViewColumn Header="Телефон" Width="150" DisplayMemberBinding="{Binding Phone}"/>
+
+                </GridView>
+
+            </ListView.View>
+        </ListView>
+
+        <WrapPanel Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock
+                Text="Поиск :"
+                FontSize="25"
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                />
+            <TextBox
+                x:Name="tbSearch"
+                Width="250"     
+                 FontWeight="Light"
+                FontSize="25"
+                TextChanged="tbSearch_TextChanged"
+                Margin="10 0 0 0"
+                />
+            <TextBlock
+                Text="Сортировать:"
+                FontSize="25"
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                />
+            <ComboBox
+                x:Name="cbSort"
+                FontSize="25"
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                SelectionChanged="cbSort_SelectionChanged"
+                Width="250"
+                />
+
+        </WrapPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    >
+            <Button
+                x:Name="btnDel"
+                Click="btnDel_Click"
+            Content="Удалить сотрудника"
+            Grid.Row="3"
+            FontSize="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Height="35"
+            Background="Transparent"
+            Width="200"
+                 Margin="00 0 20 0 "
+            />
+            <Button
+                x:Name="btnChange"
+               Click="btnChange_Click"
+            Content="Изменить сотрудника"
+            Grid.Row="3"
+            FontSize="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Height="35"
+            Background="Transparent"
+            Width="200"
+                 Margin="00 0 20 0 "
+            />
+
+            <Button
+                x:Name="btnAdd"
+            Content="Добавить сотрудника"
+            Grid.Row="3"
+            FontSize="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Height="35"
+            Click="Button_Click"
+            Background="Transparent"
+            Width="200"
+            />
+        </StackPanel>
+
+    </Grid>
+
+
+</Window>
