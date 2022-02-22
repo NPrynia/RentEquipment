@@ -519,7 +519,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBRentEquipmentEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DBRentEquipmentEntitiesa" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
@@ -613,7 +613,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище DBRentEquipmentModelContainer" CdmEntityContainer="DBRentEquipmentEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DBRentEquipmentModelContainer" CdmEntityContainer="DBRentEquipmentEntitiesa">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="DBRentEquipmentModel.Client">
               <MappingFragment StoreEntitySet="Client">

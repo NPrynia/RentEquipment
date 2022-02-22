@@ -9,6 +9,6 @@ namespace RentEquipment.ClassHelper
 {
    public class AppData
     {
-        public static DBRentEquipmentEntities2 Context { get; } = new DBRentEquipmentEntities2();
+        public static DBRentEquipmentEntitiesa Context { get; } = new DBRentEquipmentEntitiesa();
     }
 }

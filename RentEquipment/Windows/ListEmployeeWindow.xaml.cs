@@ -40,7 +40,6 @@ namespace RentEquipment.Windows
             lvEmployee.ItemsSource = ClassHelper.AppData.Context.Employee.ToList();
             cbSort.ItemsSource = listSort;
             cbSort.SelectedIndex = 0;
-           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -147,10 +146,14 @@ namespace RentEquipment.Windows
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
-            var empl = lvEmployee.SelectedItem as EF.Employee;
-            AddEmployeeWindow addEmployeeWindow = new AddEmployeeWindow(empl);
-            addEmployeeWindow.ShowDialog();
-            Filter();
+            if (lvEmployee.SelectedItem is EF.Employee)
+            {
+                var empl = lvEmployee.SelectedItem as EF.Employee;
+                AddEmployeeWindow addEmployeeWindow = new AddEmployeeWindow(empl);
+                addEmployeeWindow.ShowDialog();
+                Filter();
+            }
+               
 
         }
     }

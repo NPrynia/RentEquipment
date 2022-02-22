@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ModernWpf.Controls.Primitives;
 using RentEquipment.Windows;
 
 namespace RentEquipment
@@ -37,8 +38,7 @@ namespace RentEquipment
 
         private void btnClient_Click(object sender, RoutedEventArgs e)
         {
-            ModernWpf.Controls.Flyout.ShowAttachedFlyout(this);
-            MessageBox.Show("This is a test text!", "Some title", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            
             ListClientWindow listClientWindow = new ListClientWindow();
             this.Hide();
             listClientWindow.ShowDialog();
@@ -49,6 +49,8 @@ namespace RentEquipment
 
         private void btnEquipment_Click(object sender, RoutedEventArgs e)
         {
+            FlyoutBase.ShowAttachedFlyout(this);    
+
             ListEquimentWindow listEquimentWindow = new ListEquimentWindow();
             this.Hide();
             listEquimentWindow.ShowDialog();

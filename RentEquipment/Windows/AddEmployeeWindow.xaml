@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RentEquipment.Windows"
+        xmlns:local="clr-namespace:RentEquipment.Windows" xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="AddEmployeeWindow" Height="900" Width="800"
         ResizeMode="NoResize"
@@ -11,7 +11,7 @@
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -21,7 +21,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="155*"/>
@@ -246,19 +246,24 @@
                 FontFamily="helvetica"
                 />
 
-        <Button
+       
+           
+        <Button  
+            Click="Button_Click"
             x:Name="btnChangeAdd"
             Grid.Row="10"
             Grid.ColumnSpan="2"
             Width="200"
             FontSize="20"
+            Background="#FFDBDBDB"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Height="60"
-            Background="Transparent"
-            Content="Добавить" 
-            Click="Button_Click"
-            />
+                >
+            <StackPanel>
+                <TextBlock Text="Добавить"/>
+            </StackPanel>
+        </Button>
 
     </Grid>
 </Window>

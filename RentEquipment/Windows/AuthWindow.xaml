@@ -74,7 +74,7 @@
                 Width="200"
                 Margin="0 150 0 0"
                 Content="Login"
-                FontSize="25"
+                FontSize="23"
                 FontWeight="Light"
                 Background="Transparent"
                 BorderThickness="1"

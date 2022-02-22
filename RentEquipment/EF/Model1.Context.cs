@@ -15,10 +15,10 @@ namespace RentEquipment.EF
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class DBRentEquipmentEntities2 : DbContext
+    public partial class DBRentEquipmentEntitiesa : DbContext
     {
-        public DBRentEquipmentEntities2()
-            : base("name=DBRentEquipmentEntities2")
+        public DBRentEquipmentEntitiesa()
+            : base("name=DBRentEquipmentEntitiesa")
         {
         }
     
