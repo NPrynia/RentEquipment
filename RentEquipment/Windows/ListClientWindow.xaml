@@ -19,8 +19,56 @@
         </Grid.RowDefinitions>
 
 
+
+        <WrapPanel   
+           
+            Grid.Row="1"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" >
+            <TextBlock
+                Text="Поиск :"
+                FontSize="30"
+                FontWeight="Light"
+                TextAlignment="Center"
+                
+                />
+            <TextBox
+                x:Name="tbSearch" 
+                TextChanged="tbSearch_TextChanged"
+                FontSize="23"
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                Width="250"
+                Height="42"
+                BorderThickness="0"
+                Background="#FFDBDBDB"
+               
+                />
+            <TextBlock
+                Text="Сортировать:"
+                   FontSize="30"
+                
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                
+                />
+            <ComboBox
+                x:Name="cbSort"
+                FontSize="25"
+                FontWeight="Light"
+                Margin="10 0 0 0"
+                Width="250"
+                Height="42"
+                Background="#FFDBDBDB"
+                BorderThickness="0"
+                SelectionChanged="cbSort_SelectionChanged"
+                
+                />
+
+        </WrapPanel>
+
         <TextBlock
-           Text="Список сотрудников"
+           Text="Список клиентов"
            FontSize="30"
            FontWeight="Light"
            TextAlignment="Center"
@@ -30,7 +78,6 @@
 
         <ListView
             Grid.Row="2"
-            
             x:Name="lvClient">
             <ListView.View>
                 <GridView>
@@ -45,5 +92,59 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Border
+            Grid.Row="3"
+            >
+            <StackPanel 
+           
+            Grid.Row="4"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal"
+                    >
+                <Button
+                
+                x:Name="btnDel"
+                Click="btnDel_Click"
+            Content="Удалить клиента"
+            Grid.Row="3"
+            FontSize="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="250"
+            Height="42"     
+            Background="#FFDBDBDB"
+           
+                 Margin="00 0 20 0 "
+            />
+                <Button
+                x:Name="btnChange"
+               Click="btnChange_Click"
+            Content="Изменить клиента"
+            Grid.Row="3"
+            FontSize="15"
+           Background="#FFDBDBDB"         
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Width="250"
+           Height="42"
+               Margin="00 0 20 0 "
+            />
+
+                <Button
+                x:Name="btnAdd"
+            Content="Добавить клиента"
+            Grid.Row="3"
+            FontSize="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Click="Button_Click"
+            Width="250"
+            Height="42"     
+            Background="#FFDBDBDB"
+           
+            />
+            </StackPanel>
+
+        </Border>
     </Grid>
 </Window>

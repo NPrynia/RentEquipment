@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище DBRentEquipmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище DBRentEquipmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -17,6 +17,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="IDGender" Type="int" Nullable="false" />
           <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="isDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -31,6 +32,7 @@
           <Property Name="IDRole" Type="int" Nullable="false" />
           <Property Name="Phone" Type="char" MaxLength="12" Nullable="false" />
           <Property Name="IDGender" Type="int" Nullable="false" />
+          <Property Name="isDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -66,6 +68,8 @@
           <Property Name="IDTypeProduct" Type="int" Nullable="false" />
           <Property Name="Warranty" Type="date" Nullable="false" />
           <Property Name="IsRent" Type="bit" Nullable="false" />
+          <Property Name="isDelete" Type="bit" />
+          <Property Name="img" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Rent">
           <Key>
@@ -77,6 +81,7 @@
           <Property Name="IDEmployee" Type="int" Nullable="false" />
           <Property Name="TimeRent" Type="datetime" Nullable="false" />
           <Property Name="TimeRentEnd" Type="datetime" Nullable="false" />
+          <Property Name="isDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -290,282 +295,11 @@
             <End Role="Rent" EntitySet="Rent" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBRentEquipmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SecondName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDGender" Type="Int32" Nullable="false" />
-          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
-          <NavigationProperty Name="PassportClient" Relationship="Self.FK_PassportClient_Client" FromRole="Client" ToRole="PassportClient" />
-          <NavigationProperty Name="Rent" Relationship="Self.FK_Rent_Client" FromRole="Client" ToRole="Rent" />
-        </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SecondName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDRole" Type="Int32" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IDGender" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Employee1_Gender" FromRole="Employee" ToRole="Gender" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Employee1_Role" FromRole="Employee" ToRole="Role" />
-          <NavigationProperty Name="Rent" Relationship="Self.FK_Rent_Employee" FromRole="Employee" ToRole="Rent" />
-        </EntityType>
-        <EntityType Name="Gender">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Gender1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee1_Gender" FromRole="Gender" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="Passport">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PassportSeries" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="PassportClient" Relationship="Self.FK_PassportClient_Passport" FromRole="Passport" ToRole="PassportClient" />
-        </EntityType>
-        <EntityType Name="PassportClient">
-          <Key>
-            <PropertyRef Name="IDPassportClient" />
-          </Key>
-          <Property Name="IDPassportClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDClient" Type="Int32" Nullable="false" />
-          <Property Name="IDPassport" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_PassportClient_Client" FromRole="PassportClient" ToRole="Client" />
-          <NavigationProperty Name="Passport" Relationship="Self.FK_PassportClient_Passport" FromRole="PassportClient" ToRole="Passport" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="180" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="IDTypeProduct" Type="Int32" Nullable="false" />
-          <Property Name="Warranty" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IsRent" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="TypeProduct" Relationship="Self.FK_Product_TypeProduct" FromRole="Product" ToRole="TypeProduct" />
-          <NavigationProperty Name="Rent" Relationship="Self.FK_Rent_Product" FromRole="Product" ToRole="Rent" />
-        </EntityType>
-        <EntityType Name="Rent">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDClient" Type="Int32" Nullable="false" />
-          <Property Name="IDProduct" Type="Int32" Nullable="false" />
-          <Property Name="IDEmployee" Type="Int32" Nullable="false" />
-          <Property Name="TimeRent" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TimeRentEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Rent_Client" FromRole="Rent" ToRole="Client" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Rent_Employee" FromRole="Rent" ToRole="Employee" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Rent_Product" FromRole="Rent" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee1_Role" FromRole="Role" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TypeProduct">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeProduct1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_TypeProduct" FromRole="TypeProduct" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_Client_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="IDGender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PassportClient_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="PassportClient" Type="Self.PassportClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PassportClient">
-              <PropertyRef Name="IDClient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rent_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Rent" Type="Self.Rent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Rent">
-              <PropertyRef Name="IDClient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee1_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="IDGender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee1_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="IDRole" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rent_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Rent" Type="Self.Rent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Rent">
-              <PropertyRef Name="IDEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PassportClient_Passport">
-          <End Role="Passport" Type="Self.Passport" Multiplicity="1" />
-          <End Role="PassportClient" Type="Self.PassportClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Passport">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PassportClient">
-              <PropertyRef Name="IDPassport" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_TypeProduct">
-          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypeProduct">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="IDTypeProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rent_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Rent" Type="Self.Rent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Rent">
-              <PropertyRef Name="IDProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DBRentEquipmentEntitiesa" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Client" EntityType="Self.Client" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="Gender" EntityType="Self.Gender" />
-          <EntitySet Name="Passport" EntityType="Self.Passport" />
-          <EntitySet Name="PassportClient" EntityType="Self.PassportClient" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="Rent" EntityType="Self.Rent" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" />
-          <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PassportClient_Client" Association="Self.FK_PassportClient_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="PassportClient" EntitySet="PassportClient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rent_Client" Association="Self.FK_Rent_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Rent" EntitySet="Rent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee1_Gender" Association="Self.FK_Employee1_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee1_Role" Association="Self.FK_Employee1_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rent_Employee" Association="Self.FK_Rent_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Rent" EntitySet="Rent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PassportClient_Passport" Association="Self.FK_PassportClient_Passport">
-            <End Role="Passport" EntitySet="Passport" />
-            <End Role="PassportClient" EntitySet="PassportClient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_TypeProduct" Association="Self.FK_Product_TypeProduct">
-            <End Role="TypeProduct" EntitySet="TypeProduct" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rent_Product" Association="Self.FK_Rent_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Rent" EntitySet="Rent" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -596,7 +330,53 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-        </EntityContainer>
+          <EntitySet Name="Client" EntityType="DBRentEquipmentModel.Client" />
+          <EntitySet Name="Employee" EntityType="DBRentEquipmentModel.Employee" />
+          <EntitySet Name="Gender" EntityType="DBRentEquipmentModel.Gender" />
+          <EntitySet Name="Passport" EntityType="DBRentEquipmentModel.Passport" />
+          <EntitySet Name="PassportClient" EntityType="DBRentEquipmentModel.PassportClient" />
+          <EntitySet Name="Product" EntityType="DBRentEquipmentModel.Product" />
+          <EntitySet Name="Rent" EntityType="DBRentEquipmentModel.Rent" />
+          <EntitySet Name="Role" EntityType="DBRentEquipmentModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="DBRentEquipmentModel.sysdiagrams" />
+          <EntitySet Name="TypeProduct" EntityType="DBRentEquipmentModel.TypeProduct" />
+          <AssociationSet Name="FK_Client_Gender" Association="DBRentEquipmentModel.FK_Client_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassportClient_Client" Association="DBRentEquipmentModel.FK_PassportClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="PassportClient" EntitySet="PassportClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rent_Client" Association="DBRentEquipmentModel.FK_Rent_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rent" EntitySet="Rent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee1_Gender" Association="DBRentEquipmentModel.FK_Employee1_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee1_Role" Association="DBRentEquipmentModel.FK_Employee1_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rent_Employee" Association="DBRentEquipmentModel.FK_Rent_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Rent" EntitySet="Rent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassportClient_Passport" Association="DBRentEquipmentModel.FK_PassportClient_Passport">
+            <End Role="Passport" EntitySet="Passport" />
+            <End Role="PassportClient" EntitySet="PassportClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_TypeProduct" Association="DBRentEquipmentModel.FK_Product_TypeProduct">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rent_Product" Association="DBRentEquipmentModel.FK_Rent_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Rent" EntitySet="Rent" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -608,120 +388,241 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-      </Schema>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="IDGender" Type="Int32" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="isDelete" Type="Boolean" />
+          <NavigationProperty Name="Gender" Relationship="DBRentEquipmentModel.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
+          <NavigationProperty Name="PassportClient" Relationship="DBRentEquipmentModel.FK_PassportClient_Client" FromRole="Client" ToRole="PassportClient" />
+          <NavigationProperty Name="Rent" Relationship="DBRentEquipmentModel.FK_Rent_Client" FromRole="Client" ToRole="Rent" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IDRole" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="IDGender" Type="Int32" Nullable="false" />
+          <Property Name="isDelete" Type="Boolean" />
+          <NavigationProperty Name="Gender" Relationship="DBRentEquipmentModel.FK_Employee1_Gender" FromRole="Employee" ToRole="Gender" />
+          <NavigationProperty Name="Role" Relationship="DBRentEquipmentModel.FK_Employee1_Role" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="Rent" Relationship="DBRentEquipmentModel.FK_Rent_Employee" FromRole="Employee" ToRole="Rent" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="DBRentEquipmentModel.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="DBRentEquipmentModel.FK_Employee1_Gender" FromRole="Gender" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Passport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PassportSeries" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PassportClient" Relationship="DBRentEquipmentModel.FK_PassportClient_Passport" FromRole="Passport" ToRole="PassportClient" />
+        </EntityType>
+        <EntityType Name="PassportClient">
+          <Key>
+            <PropertyRef Name="IDPassportClient" />
+          </Key>
+          <Property Name="IDPassportClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDClient" Type="Int32" Nullable="false" />
+          <Property Name="IDPassport" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="DBRentEquipmentModel.FK_PassportClient_Client" FromRole="PassportClient" ToRole="Client" />
+          <NavigationProperty Name="Passport" Relationship="DBRentEquipmentModel.FK_PassportClient_Passport" FromRole="PassportClient" ToRole="Passport" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="180" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="IDTypeProduct" Type="Int32" Nullable="false" />
+          <Property Name="Warranty" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsRent" Type="Boolean" Nullable="false" />
+          <Property Name="isDelete" Type="Boolean" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="TypeProduct" Relationship="DBRentEquipmentModel.FK_Product_TypeProduct" FromRole="Product" ToRole="TypeProduct" />
+          <NavigationProperty Name="Rent" Relationship="DBRentEquipmentModel.FK_Rent_Product" FromRole="Product" ToRole="Rent" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDClient" Type="Int32" Nullable="false" />
+          <Property Name="IDProduct" Type="Int32" Nullable="false" />
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" />
+          <Property Name="TimeRent" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeRentEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isDelete" Type="Boolean" />
+          <NavigationProperty Name="Client" Relationship="DBRentEquipmentModel.FK_Rent_Client" FromRole="Rent" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="DBRentEquipmentModel.FK_Rent_Employee" FromRole="Rent" ToRole="Employee" />
+          <NavigationProperty Name="Product" Relationship="DBRentEquipmentModel.FK_Rent_Product" FromRole="Rent" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="DBRentEquipmentModel.FK_Employee1_Role" FromRole="Role" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeProduct1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="DBRentEquipmentModel.FK_Product_TypeProduct" FromRole="TypeProduct" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Client_Gender">
+          <End Type="DBRentEquipmentModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="IDGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassportClient_Client">
+          <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.PassportClient" Role="PassportClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PassportClient">
+              <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rent_Client">
+          <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Rent" Role="Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee1_Gender">
+          <End Type="DBRentEquipmentModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee1_Role">
+          <End Type="DBRentEquipmentModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rent_Employee">
+          <End Type="DBRentEquipmentModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Rent" Role="Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassportClient_Passport">
+          <End Type="DBRentEquipmentModel.Passport" Role="Passport" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.PassportClient" Role="PassportClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passport">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PassportClient">
+              <PropertyRef Name="IDPassport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_TypeProduct">
+          <End Type="DBRentEquipmentModel.TypeProduct" Role="TypeProduct" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IDTypeProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rent_Product">
+          <End Type="DBRentEquipmentModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Rent" Role="Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="IDProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище DBRentEquipmentModelContainer" CdmEntityContainer="DBRentEquipmentEntitiesa">
-          <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gender">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Gender">
-              <MappingFragment StoreEntitySet="Gender">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Gender1" ColumnName="Gender" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Passport">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Passport">
-              <MappingFragment StoreEntitySet="Passport">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PassportClient">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.PassportClient">
-              <MappingFragment StoreEntitySet="PassportClient">
-                <ScalarProperty Name="IDPassportClient" ColumnName="IDPassportClient" />
-                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
-                <ScalarProperty Name="IDPassport" ColumnName="IDPassport" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Product1" ColumnName="Product" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="IDTypeProduct" ColumnName="IDTypeProduct" />
-                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
-                <ScalarProperty Name="IsRent" ColumnName="IsRent" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rent">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Rent">
-              <MappingFragment StoreEntitySet="Rent">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
-                <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
-                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
-                <ScalarProperty Name="TimeRent" ColumnName="TimeRent" />
-                <ScalarProperty Name="TimeRentEnd" ColumnName="TimeRentEnd" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Role1" ColumnName="Role" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TypeProduct">
-            <EntityTypeMapping TypeName="DBRentEquipmentModel.TypeProduct">
-              <MappingFragment StoreEntitySet="TypeProduct">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TypeProduct1" ColumnName="TypeProduct" />
-                <ScalarProperty Name="img" ColumnName="img" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DBRentEquipmentModel.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DBRentEquipmentModel.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище DBRentEquipmentModel.sp_dropdiagram" />
@@ -746,7 +647,120 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DBRentEquipmentModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DBRentEquipmentModel.sp_upgraddiagrams" />
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="IDGender" ColumnName="IDGender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Gender1" ColumnName="Gender" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passport">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Passport">
+              <MappingFragment StoreEntitySet="Passport">
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PassportClient">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.PassportClient">
+              <MappingFragment StoreEntitySet="PassportClient">
+                <ScalarProperty Name="IDPassport" ColumnName="IDPassport" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="IDPassportClient" ColumnName="IDPassportClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="IsRent" ColumnName="IsRent" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="IDTypeProduct" ColumnName="IDTypeProduct" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Product1" ColumnName="Product" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rent">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Rent">
+              <MappingFragment StoreEntitySet="Rent">
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="TimeRentEnd" ColumnName="TimeRentEnd" />
+                <ScalarProperty Name="TimeRent" ColumnName="TimeRent" />
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+                <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeProduct">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.TypeProduct">
+              <MappingFragment StoreEntitySet="TypeProduct">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="TypeProduct1" ColumnName="TypeProduct" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

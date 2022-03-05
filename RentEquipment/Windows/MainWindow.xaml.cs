@@ -43,6 +43,7 @@ namespace RentEquipment
             this.Hide();
             listClientWindow.ShowDialog();
             this.Show();
+            
 
 
         }
@@ -59,8 +60,11 @@ namespace RentEquipment
 
         private void btnRent_Click(object sender, RoutedEventArgs e)
         {
-
-
+            OutputEquipmentWindow outputEquipmentWindow = new OutputEquipmentWindow();
+            this.Hide();
+            outputEquipmentWindow.ShowDialog();
+            this.Show();
+;
         }
     }
 }

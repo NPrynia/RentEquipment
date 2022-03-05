@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RentEquipment.EF;
 using RentEquipment.Windows;
 
 namespace RentEquipment.Windows
@@ -30,36 +31,33 @@ namespace RentEquipment.Windows
             "По роле",
             "По гендеру"
            ,
-
         };
 
 
         public ListEmployeeWindow()
         {
             InitializeComponent();
-            lvEmployee.ItemsSource = ClassHelper.AppData.Context.Employee.ToList();
+            List<EF.Employee> listEmployee = new List<EF.Employee>();
+            listEmployee = listEmployee.Where(i => i.isDelete == true).ToList();
+            lvEmployee.ItemsSource = listEmployee;
             cbSort.ItemsSource = listSort;
             cbSort.SelectedIndex = 0;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AddEmployeeWindow addEmployeeWindow = new AddEmployeeWindow();
-            addEmployeeWindow.ShowDialog();
 
-        }
+       
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Filter();               
+            Filter();
         }
 
         private void Filter()
         {
             List<EF.Employee> listEmployee = new List<EF.Employee>();
-            listEmployee = ClassHelper.AppData.Context.Employee.ToList();
+            listEmployee = ClassHelper.AppData.Context.Employee.Where(i => i.isDelete == false).ToList();
             listEmployee = listEmployee.Where
-                (i => i.FIO.ToLower().Contains(tbSearch.Text.ToLower())||
+                (i => i.FIO.ToLower().Contains(tbSearch.Text.ToLower()) ||
                  i.Login.ToLower().Contains(tbSearch.Text.ToLower()) ||
                  i.Phone.ToLower().Contains(tbSearch.Text.ToLower())).ToList();
 
@@ -93,27 +91,6 @@ namespace RentEquipment.Windows
             Filter();
         }
 
-        private void DeleteEmployee()
-        {
-            var resClick = MessageBox.Show("Удалить пользователя ?", "Внимание", MessageBoxButton.YesNo,MessageBoxImage.Warning);
-            if (resClick == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            if (lvEmployee.SelectedItem is EF.Employee)
-            {
-                var empl = lvEmployee.SelectedItem as EF.Employee;
-                ClassHelper.AppData.Context.Employee.Remove(empl);
-                ClassHelper.AppData.Context.SaveChanges();
-                MessageBox.Show("Пользователь удален");
-                Filter();
-
-            }
-
-
-        }
-
         private void lvEmployee_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Back || e.Key == Key.Delete)
@@ -123,16 +100,28 @@ namespace RentEquipment.Windows
 
         }
 
-        private void btnDel_Click(object sender, RoutedEventArgs e)
-        {
-            DeleteEmployee();
-        }
 
-        private void lvEmployee_KeyDown(object sender, KeyEventArgs e)
+        private void DeleteEmployee()
         {
             
-        }
 
+            if (lvEmployee.SelectedItem is EF.Employee)
+            {
+                var resClick = MessageBox.Show("Удалить пользователя ?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (resClick == MessageBoxResult.No)
+                {
+                    return;
+                }
+                var empl = lvEmployee.SelectedItem as EF.Employee;
+                empl.isDelete = true;
+                ClassHelper.AppData.Context.SaveChanges();
+                MessageBox.Show("Пользователь удален");
+                Filter();
+
+            }
+
+
+        }
         private void lvEmployee_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (lvEmployee.SelectedItem is EF.Employee)
@@ -144,6 +133,25 @@ namespace RentEquipment.Windows
             }
         }
 
+
+
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEmployee();
+        }
+
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddEmployeeWindow addEmployeeWindow = new AddEmployeeWindow();
+            addEmployeeWindow.ShowDialog();
+            Filter();
+
+        }
+
+
+      
+
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
             if (lvEmployee.SelectedItem is EF.Employee)
@@ -153,7 +161,6 @@ namespace RentEquipment.Windows
                 addEmployeeWindow.ShowDialog();
                 Filter();
             }
-               
 
         }
     }

@@ -4,23 +4,199 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentEquipment.Windows"
-        mc:Ignorable="d"
-        Title="AddEquipmentWindow" Height="450" Width="800"
-        
         xmlns:ui="http://schemas.modernwpf.com/2019"
-    ui:WindowHelper.UseModernWindowStyle="True">
+        mc:Ignorable="d"
+        Title="AddEquipmentWindow" Height="900" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+    ui:WindowHelper.UseModernWindowStyle="True"
+        >
     <Grid>
-        
-        <TextBlock
-           Text="Добавление оборудование"
-           FontSize="30"
-           FontWeight="Light"
-           TextAlignment="Center"
-           FontFamily="helvetica"
-            ></TextBlock>
         <Grid.RowDefinitions>
-          
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="339*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Name="tbTitle"
+            Text="Добавление оборудования"
+            Grid.ColumnSpan="2"
+            FontSize="35"
+         VerticalAlignment="Center"
+            FontWeight="Light"
+           FontFamily="helvetica"
+            TextAlignment="Center" 
+            Margin="0,5"
+            />
+
+        <!--ColumnOne-->
+
+        <TextBlock
+                Text="Название:"
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+         
+                />
+        <TextBlock
+                Text="Описание:"
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+               
+                />
+        <TextBlock
+                Text="Стоимость:"
+                Grid.Row="3"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                />
         
+
+        <TextBlock
+                Text="Тип оборудования:"
+                HorizontalAlignment="Right"
+                Grid.Row="4"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                />
+        <TextBlock
+                Text="Гарантия:"
+                HorizontalAlignment="Right"
+                Grid.Row="5"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                />
+        <StackPanel 
+            Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0 0 0 5"
+            >
+            <Image 
+                x:Name="photoEquipment"
+                Source="/Res/Img.png"
+                Height="170" Width="170"
+                />
+            <Button x:Name="btnAddImg"
+                Click="btnAddImg_Click"
+                Width="200" Height="30"
+                Background="Transparent"
+                Content="Выбрать изображение"
+            />
+            <Border Height="2"
+                    Background="Black"
+                    />
+
+        </StackPanel>
+       
+
+
+
+        <!--ColumnTwo-->
+        <TextBox
+            x:Name="tbName"
+                Grid.Row="1"
+                Width="350"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 0 "
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+         
+                />
+        <TextBox
+            x:Name="tbDescription"
+                Grid.Row="2"
+                Width="350"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 0 "
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                />
+        <TextBox
+                x:Name="tbCost"
+                Grid.Row="3"
+                MaxLength="12"
+                Width="350"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 0 " 
+                KeyDown="tbCost_KeyDown"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica" 
+            TextChanged="tbCost_TextChanged" 
+                />
+
+        <ComboBox x:Name="cbTypeEquipment"
+                Grid.Row="4"
+                Width="350"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 0 "
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica" 
+                />
+        <DatePicker x:Name="dpWarranty"
+                Grid.Row="5"
+                Width="350"
+                Grid.Column="1"
+                Margin="15 0 0 0 "
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica" />
+
+
+        <!--Bottom-->
+        <Button  
+            Click="ButtonAdd_Click"
+            x:Name="btnChangeAdd"
+            Grid.Row="10"
+            Grid.ColumnSpan="2"
+            Width="200" Height="60"
+            FontSize="20"
+            Background="#FFDBDBDB"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            
+                >
+            <StackPanel>
+                <TextBlock Text="Добавить"/>
+            </StackPanel>
+        </Button>
+
     </Grid>
 </Window>

@@ -14,6 +14,7 @@
 
 
     <Grid>
+       
 
 
         <TextBlock
@@ -63,16 +64,25 @@
                 Margin="5"
                 />
             <Button
-                x:Name="btnRent"
-                Click="btnRent_Click"
-                Content="Аренда"
+                x:Name="btnListRent"
+                Content="Список аренды"
                 FontWeight="Light"
                 FontSize="50"
                 FontFamily="helvetica"
                 Width="600"
                 Height="100"
                 Margin="5" 
-                Cursor="Hand"
+                />
+            <Button
+                x:Name="btnRent"
+                Click="btnRent_Click"
+                Content="Оформить аренду"
+                FontWeight="Light"
+                FontSize="50"
+                FontFamily="helvetica"
+                Width="600"
+                Height="100"
+                Margin="5" 
                 />
             
 

@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace RentEquipment.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для OutputEquipmentWindow.xaml
+    /// Логика взаимодействия для Window1.xaml
     /// </summary>
-    public partial class OutputEquipmentWindow : Window
+    public partial class Window1 : Window
     {
-        public OutputEquipmentWindow()
+        public Window1()
         {
             InitializeComponent();
-        }
-
-        private void tbFIOClient_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

@@ -29,6 +29,7 @@ namespace RentEquipment.EF
         public int IDRole { get; set; }
         public string Phone { get; set; }
         public int IDGender { get; set; }
+        public Nullable<bool> isDelete { get; set; }
     
         public virtual Gender Gender { get; set; }
         public virtual Role Role { get; set; }

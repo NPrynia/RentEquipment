@@ -27,6 +27,8 @@ namespace RentEquipment.EF
         public int IDTypeProduct { get; set; }
         public System.DateTime Warranty { get; set; }
         public bool IsRent { get; set; }
+        public Nullable<bool> isDelete { get; set; }
+        public byte[] img { get; set; }
     
         public virtual TypeProduct TypeProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

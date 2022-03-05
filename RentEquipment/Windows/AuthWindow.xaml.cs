@@ -22,7 +22,7 @@ namespace RentEquipment.Windows
     /// </summary>
     public partial class AuthWindow : Window
     {
-       
+
         public AuthWindow()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace RentEquipment.Windows
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var authUser = AppData.Context.Employee.ToList().
                 Where(i => i.Login == Logintxt.Text && i.Password == Passwordtxt.Password).
                 FirstOrDefault();
@@ -46,7 +46,7 @@ namespace RentEquipment.Windows
             {
                 MessageBox.Show("Пользователь не найден");
             }
-            
+
         }
     }
 }

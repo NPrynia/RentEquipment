@@ -5,10 +5,154 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentEquipment.Windows"
         mc:Ignorable="d"
-        Title="OutputEquipmentWindow" Height="450" Width="800"
+        Title="OutputEquipmentWindow"  Height="800" Width="1200"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="180*"/>
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock  Text="Выдача товара"
+                    Grid.Column="1"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    FontSize="50"
+                    TextAlignment="Center"
+                    FontFamily="helvetica"
+                    FontWeight="Light"
+                    />
+        <TextBox
+            x:Name="tbFIOEmployee"
+            Grid.Column="1"
+            Grid.Row="1"
+            Width="500"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            FontSize="25"
+            Margin="30 0 0 0"
+            TextAlignment="Center"
+            FontFamily="helvetica"
+            FontWeight="Light"
+            />
+        <TextBox
+            x:Name="tbFIOClient"
+            Grid.Column="1"
+            Grid.Row="2"
+            Width="500"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            FontSize="25"
+            TextAlignment="Center"
+            FontFamily="helvetica"
+            FontWeight="Light" 
+            Margin="30 0 0 0"
+            />
+        <TextBlock
+                Text="Фио работника:"
+                Grid.Row="1"
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+         
+                />
+        <TextBlock
+                Text="Фио клиента:"
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+               
+                />
+        <TextBlock
+                Text="Товар:"
+                Grid.Row="3"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+            
+               
+                />
+
+        <WrapPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Margin="30 0 0 0"
+            >
+            <ComboBox
+                
+            Width="200"
+             FontSize="25"
+                
+            />
+            <TextBox
+            x:Name="tbSearch"
+            Grid.Column="1"
+            Grid.Row="1"
+            Width="270"
+            FontSize="25"
+            Margin="30 0 0 0"
+            TextAlignment="Center"
+            FontFamily="helvetica"
+            FontWeight="Light"
+            />
+
+
+        </WrapPanel>
+        
+
+        <TextBlock
+                Text="Период:"
+                Grid.Row="4"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+               
+                />
+       
+        <WrapPanel
+              Grid.Row="4"
+              Grid.Column="1"
+              VerticalAlignment="Center"
+            >
+
+
+            
+            <DatePicker
+              Name="dateStartRent"
+              Margin="30 0 0 0"
+              DisplayDate="02.24.2020"
+              IsEnabled="False"
+              FontSize="25"
+              Width="200"
+            />
+            
+            <DatePicker
+              Name="dateEndRent"
+              FontSize="25"
+              DisplayDateStart="02.24.2022"
+              DisplayDateEnd="08.24.2022"
+            />
+        </WrapPanel>
         
     </Grid>
 </Window>
