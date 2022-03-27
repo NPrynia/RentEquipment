@@ -43,8 +43,8 @@
   
   
 
-<h2>Окно выдачи товаров (В процессе)<h2>
+<h2>Окно выдачи товаров <h2>
+![online-screen-recorder-2022-03-27--12-39-38](https://user-images.githubusercontent.com/81188162/160282046-efa0610f-51a6-41cd-b8ff-4401b086d7f8.gif)
 
-![image](https://user-images.githubusercontent.com/81188162/155682439-49f6a4e7-fee0-423b-a5fc-90a4cef30aa5.png)
 
 
