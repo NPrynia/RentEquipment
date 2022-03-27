@@ -44,7 +44,8 @@
   
 
 <h2>Окно выдачи товаров <h2>
-![online-screen-recorder-2022-03-27--12-39-38](https://user-images.githubusercontent.com/81188162/160282046-efa0610f-51a6-41cd-b8ff-4401b086d7f8.gif)
+ ![WindowRent](https://user-images.githubusercontent.com/81188162/160282121-87599f94-7830-4aca-ab12-97212df7e9c0.gif)
+ 
 
 
 
