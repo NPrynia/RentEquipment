@@ -43,24 +43,23 @@ namespace RentEquipment.Windows
             tbName.Text = product.Product1;
             tbDescription.Text = product.Description;
             tbCost.Text =Convert.ToString(product.Cost);
+
             cbTypeEquipment.ItemsSource = ClassHelper.AppData.Context.TypeProduct.ToList();
             cbTypeEquipment.DisplayMemberPath = "TypeProduct1";
             cbTypeEquipment.SelectedIndex = product.IDTypeProduct - 1;
-            dpWarranty.DisplayDate = product.Warranty;
-            using (MemoryStream stream = new MemoryStream(product.img))
+            dpWarranty.SelectedDate = product.Warranty;
+            if (product.img != null)
             {
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                bitmapImage.StreamSource = stream;
-                bitmapImage.EndInit();  
-                photoEquipment.Source = bitmapImage; 
-
-
-
-
-
+                using(MemoryStream stream = new MemoryStream(product.img))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    photoEquipment.Source = bitmapImage;
+                }
             }
             tbTitle.Text = "Изменение оборудования";
             btnChangeAdd.Content = "Изменить";

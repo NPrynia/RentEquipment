@@ -32,9 +32,9 @@ namespace RentEquipment.Windows
         public ListClientWindow()
         {
             InitializeComponent();
-            List<EF.Client> listEmployee = new List<EF.Client>();
-            listEmployee = listEmployee.Where(i => i.isDelete == true).ToList();
-            lvClient.ItemsSource = listEmployee;
+            List<EF.Client> listClient = new List<EF.Client>();
+            listClient = listClient.Where(i => i.isDelete == false).ToList();
+            lvClient.ItemsSource = listClient;
             cbSort.ItemsSource = listSort;
             cbSort.SelectedIndex = 0;
            

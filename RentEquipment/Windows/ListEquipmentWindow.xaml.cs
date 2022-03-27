@@ -32,9 +32,9 @@ namespace RentEquipment.Windows
         public ListEquimentWindow()
         {
             InitializeComponent();
-            List<EF.Product> listEmployee = new List<EF.Product>();
-            listEmployee = listEmployee.Where(i => i.isDelete == true).ToList();
-            lvEquipment.ItemsSource = listEmployee;
+            List<EF.Product> listProduct = new List<EF.Product>();
+            listProduct = listProduct.Where(i => i.isDelete == false).ToList();
+            lvEquipment.ItemsSource = listProduct;
             cbSort.ItemsSource = listSort;
             cbSort.SelectedIndex = 0;
         }

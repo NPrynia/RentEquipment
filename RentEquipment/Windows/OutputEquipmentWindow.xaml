@@ -33,32 +33,61 @@
                     FontFamily="helvetica"
                     FontWeight="Light"
                     />
-        <TextBox
-            x:Name="tbFIOEmployee"
-            Grid.Column="1"
-            Grid.Row="1"
+        <WrapPanel 
+            Grid.Column="1" Grid.Row="1"
+            VerticalAlignment="Center" HorizontalAlignment="Left"
+            >
+            <ComboBox
+            x:Name="cbFIOEmployee"
+            ItemsSource="{Binding}"
+            TextBoxBase.TextChanged="cbFIOEmployee_TextChanged"
+            IsTextSearchEnabled="False" 
+           
             Width="500"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            FontSize="25"
+            IsEditable="True"
+            StaysOpenOnEdit="True"
+           FontSize="25"
+            Height="45"
             Margin="30 0 0 0"
-            TextAlignment="Center"
             FontFamily="helvetica"
             FontWeight="Light"
             />
-        <TextBox
-            x:Name="tbFIOClient"
-            Grid.Column="1"
-            Grid.Row="2"
+            <Button
+                Name="btnAddEmployee"
+                Content="Добавить работника"
+                Background="Transparent"
+                VerticalAlignment="Center"
+                Click="btnAddEmployee_Click" FontStyle="Italic"
+                />
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="2" Grid.Column="1"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+           >
+            <ComboBox
+            x:Name="cbFIOClient"
+            TextBoxBase.TextChanged="cbFIOClient_TextChanged"   
+            
+            ItemsSource="{Binding}"
+           IsTextSearchEnabled="False" 
             Width="500"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
+            IsEditable="True"
+            StaysOpenOnEdit="True"
             FontSize="25"
-            TextAlignment="Center"
+            Height="45"
+            Margin="30 0 0 0"
             FontFamily="helvetica"
             FontWeight="Light" 
-            Margin="30 0 0 0"
             />
+            <Button
+                x:Name="btnAddClient"
+                Content="Добавить клиента"
+                Background="Transparent"
+                VerticalAlignment="Center"
+                Click="btnAddClient_Click" FontWeight="Normal" FontStyle="Italic"
+                />
+        </WrapPanel>
+       
         <TextBlock
                 Text="Фио работника:"
                 Grid.Row="1"
@@ -93,25 +122,27 @@
         <WrapPanel
             Grid.Row="3"
             Grid.Column="1"
-            VerticalAlignment="Center"
-            Margin="30 0 0 0"
+            VerticalAlignment="Center" HorizontalAlignment="Left"
+            Height="45"
             >
-            <ComboBox
-                
-            Width="200"
-             FontSize="25"
-                
-            />
-            <TextBox
-            x:Name="tbSearch"
+            <ComboBox  
+            Name="cbProduct"
+
+            TextBoxBase.TextChanged="cbProduct_TextChanged"            
+            Width="415"
+            ItemsSource="{Binding}"
+            IsTextSearchEnabled="False" 
             Grid.Column="1"
             Grid.Row="1"
-            Width="270"
+            IsEditable="True"
+            StaysOpenOnEdit="True"
+            VerticalAlignment="Center" HorizontalAlignment="Left"
             FontSize="25"
+            Height="45"
             Margin="30 0 0 0"
-            TextAlignment="Center"
             FontFamily="helvetica"
             FontWeight="Light"
+                
             />
 
 
@@ -132,27 +163,41 @@
         <WrapPanel
               Grid.Row="4"
               Grid.Column="1"
-              VerticalAlignment="Center"
+              VerticalAlignment="Center" HorizontalAlignment="Left"
+              Width="500"
+              Height="45"
             >
 
 
             
             <DatePicker
-              Name="dateStartRent"
+              Name="dbDateStartRent"
               Margin="30 0 0 0"
-              DisplayDate="02.24.2020"
               IsEnabled="False"
-              FontSize="25"
+              FontSize="25" 
               Width="200"
             />
             
             <DatePicker
-              Name="dateEndRent"
+              Name="dpDateEndRent"
               FontSize="25"
-              DisplayDateStart="02.24.2022"
-              DisplayDateEnd="08.24.2022"
+              Margin="30 0 0 0"
             />
         </WrapPanel>
-        
+
+        <Button
+            x:Name="btnAdd"
+            Click="btnAdd_Click"
+            Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            Height="50" Width="250"
+            Content="Выдать"
+            FontSize="30"
+            />
+
+
+
+
+
     </Grid>
 </Window>

@@ -38,7 +38,7 @@ namespace RentEquipment.Windows
         {
             InitializeComponent();
             List<EF.Employee> listEmployee = new List<EF.Employee>();
-            listEmployee = listEmployee.Where(i => i.isDelete == true).ToList();
+            listEmployee = listEmployee.Where(i => i.isDelete == false).ToList();
             lvEmployee.ItemsSource = listEmployee;
             cbSort.ItemsSource = listSort;
             cbSort.SelectedIndex = 0;
