@@ -43,8 +43,9 @@
   
   
 
-<h2>Окно выдачи товаров (В процессе)<h2>
+<h2>Окно выдачи товаров <h2>
+ ![WindowRent](https://user-images.githubusercontent.com/81188162/160282121-87599f94-7830-4aca-ab12-97212df7e9c0.gif)
+ 
 
-![image](https://user-images.githubusercontent.com/81188162/155682439-49f6a4e7-fee0-423b-a5fc-90a4cef30aa5.png)
 
 
