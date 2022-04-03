@@ -82,6 +82,7 @@
           <Property Name="TimeRent" Type="datetime" Nullable="false" />
           <Property Name="TimeRentEnd" Type="datetime" Nullable="false" />
           <Property Name="isDelete" Type="bit" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -478,6 +479,7 @@
           <Property Name="TimeRent" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeRentEnd" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDelete" Type="Boolean" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="Client" Relationship="DBRentEquipmentModel.FK_Rent_Client" FromRole="Rent" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="DBRentEquipmentModel.FK_Rent_Employee" FromRole="Rent" ToRole="Employee" />
           <NavigationProperty Name="Product" Relationship="DBRentEquipmentModel.FK_Rent_Product" FromRole="Rent" ToRole="Product" />
@@ -722,6 +724,7 @@
           <EntitySetMapping Name="Rent">
             <EntityTypeMapping TypeName="DBRentEquipmentModel.Rent">
               <MappingFragment StoreEntitySet="Rent">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="isDelete" ColumnName="isDelete" />
                 <ScalarProperty Name="TimeRentEnd" ColumnName="TimeRentEnd" />
                 <ScalarProperty Name="TimeRent" ColumnName="TimeRent" />

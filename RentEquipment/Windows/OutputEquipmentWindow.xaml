@@ -21,6 +21,7 @@
             <RowDefinition Height="220*"/>
             <RowDefinition Height="220*"/>
             <RowDefinition Height="220*"/>
+            <RowDefinition Height="220*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
@@ -126,8 +127,7 @@
             Height="45"
             >
             <ComboBox  
-            Name="cbProduct"
-
+            Name="cbProduct"   
             TextBoxBase.TextChanged="cbProduct_TextChanged"            
             Width="415"
             ItemsSource="{Binding}"
@@ -144,6 +144,14 @@
             FontWeight="Light"
                 
             />
+            <Button
+                x:Name="btnAddProduct"
+                Content="Добавить клиента"
+                Background="Transparent"
+                VerticalAlignment="Center"
+                Click="btnAddProduct_Click"
+                FontWeight="Normal" FontStyle="Italic"
+                />
 
 
         </WrapPanel>
@@ -171,7 +179,7 @@
 
             
             <DatePicker
-              Name="dbDateStartRent"
+              Name="dpDateStartRent"
               Margin="30 0 0 0"
               IsEnabled="False"
               FontSize="25" 
@@ -180,20 +188,59 @@
             
             <DatePicker
               Name="dpDateEndRent"
+              SelectedDateChanged="dpDateEndRent_SelectedDateChanged"
               FontSize="25"
               Margin="30 0 0 0"
             />
         </WrapPanel>
+        
 
         <Button
             x:Name="btnAdd"
             Click="btnAdd_Click"
-            Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="3"
+            Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
             Height="50" Width="250"
             Content="Выдать"
             FontSize="30"
             />
+
+
+        <TextBlock
+                Text="Расчетная стоимость:"
+                Grid.Row="5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+               
+                />
+
+        <WrapPanel
+            
+                Grid.Row="5" Grid.Column="1"
+                VerticalAlignment="Center" HorizontalAlignment="Left">
+            
+            <TextBlock
+                x:Name="tbCost"
+                Text="0000"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                Margin="30 0 0 0"
+                />
+            <TextBlock
+                Text="руб."
+                Grid.Row="5" Grid.Column="1"
+                VerticalAlignment="Center" HorizontalAlignment="Left"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                Margin="10 0 0 0"
+                />
+        </WrapPanel>
+       
 
 
 

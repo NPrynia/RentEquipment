@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3d1731d318674255b5f17bdafd958fb8" Name="Diagram1">
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Client" Width="1.5" PointX="3" PointY="8.875" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Employee" Width="1.5" PointX="3" PointY="4.5" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Gender" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Passport" Width="1.5" PointX="3" PointY="18.625" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.PassportClient" Width="1.5" PointX="5.25" PointY="10.625" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Product" Width="1.5" PointX="3" PointY="13.75" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Client" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Employee" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Gender" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Passport" Width="1.5" PointX="3" PointY="18.75" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.PassportClient" Width="1.5" PointX="5.25" PointY="11.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Product" Width="1.5" PointX="3" PointY="13.875" />
         <EntityTypeShape EntityType="DBRentEquipmentModel.Rent" Width="1.5" PointX="5.25" PointY="6.875" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.Role" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Role" Width="1.5" PointX="0.75" PointY="2.625" />
         <EntityTypeShape EntityType="DBRentEquipmentModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBRentEquipmentModel.TypeProduct" Width="1.5" PointX="0.75" PointY="14.5" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.TypeProduct" Width="1.5" PointX="0.75" PointY="14.625" />
         <AssociationConnector Association="DBRentEquipmentModel.FK_Client_Gender" />
         <AssociationConnector Association="DBRentEquipmentModel.FK_PassportClient_Client" />
         <AssociationConnector Association="DBRentEquipmentModel.FK_Rent_Client" />

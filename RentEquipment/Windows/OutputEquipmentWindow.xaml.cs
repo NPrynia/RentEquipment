@@ -26,7 +26,7 @@ namespace RentEquipment.Windows
         {
             InitializeComponent();
 
-            dbDateStartRent.SelectedDate = DateTime.Today;
+            dpDateStartRent.SelectedDate = DateTime.Today;
             dpDateEndRent.DisplayDateStart = DateTime.UtcNow;
             dpDateEndRent.DisplayDateEnd = DateTime.UtcNow.AddMonths(6);
 
@@ -58,6 +58,7 @@ namespace RentEquipment.Windows
             CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(cbFIOEmployee.ItemsSource);
             cv.Filter = s =>
                 ((string)s).IndexOf(cbFIOEmployee.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            
         }
 
         private void cbProduct_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,6 +69,7 @@ namespace RentEquipment.Windows
             CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(cbProduct.ItemsSource);
             cv.Filter = s =>
                 ((string)s).IndexOf(cbProduct.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            tbCost.Text = Convert.ToString(costRent());
         }
 
         private void cbFIOClient_TextChanged(object sender, TextChangedEventArgs e)
@@ -138,19 +140,64 @@ namespace RentEquipment.Windows
                             where p.Product1 == cbProduct.Text
                               select new { p.ID }.ID;
 
+
+
             var addRent = ClassHelper.AppData.Context.Rent.ToList().FirstOrDefault();
             addRent.IDEmployee = IDemployees.ToList()[0];
             addRent.IDEmployee = IDClient.ToList()[0];
             addRent.IDEmployee = IDProduct.ToList()[0];
+            int id = IDClient.ToList()[0];
             addRent.isDelete = false;
-            addRent.TimeRent = dbDateStartRent.DisplayDate;
-            addRent.TimeRentEnd = dpDateEndRent.DisplayDate;
+            addRent.TimeRent = (DateTime)dpDateStartRent.SelectedDate;
+            addRent.TimeRentEnd = (DateTime)dpDateEndRent.SelectedDate;
+            addRent.Cost = costRent();
             ClassHelper.AppData.Context.Rent.Add(addRent);
             MessageBox.Show("Аренда добавлена");
             ClassHelper.AppData.Context.SaveChanges();
             
            
 
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddEquipmentWindow addEquipmentWindow = new AddEquipmentWindow();
+            addEquipmentWindow.ShowDialog();
+        }
+
+        public decimal costRent()
+        {
+            decimal costRent = 0;
+            var productCollection = ClassHelper.AppData.Context.Product.ToList();
+
+            var cost = from p in productCollection
+                       where p.Product1 == cbProduct.Text
+                       select new { p.Cost }.Cost;
+
+            try
+            {
+                costRent = cost.ToList()[0];
+                DateTime start = DateTime.Parse(Convert.ToString(dpDateStartRent.SelectedDate));
+                DateTime end = DateTime.Parse(Convert.ToString(dpDateEndRent.SelectedDate));
+                double qtyDay = (end - start).TotalDays;
+                if (qtyDay == 0)
+                {
+                    qtyDay = 1;
+                }
+                return Math.Round((decimal)(costRent * 5 / 100)) * Convert.ToInt32(qtyDay);
+            }
+            catch
+            {
+                return 0;
+            }
+
+          
+        }
+
+        private void dpDateEndRent_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            tbCost.Text = Convert.ToString(costRent());
         }
     }
 
