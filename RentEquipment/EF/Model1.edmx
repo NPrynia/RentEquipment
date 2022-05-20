@@ -109,6 +109,26 @@
           <Property Name="TypeProduct" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="img" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "DBRentEquipment.dbo.rentList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="rentList">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FIOClient" />
+            <PropertyRef Name="FIOEmployee" />
+            <PropertyRef Name="TimeRent" />
+            <PropertyRef Name="TimeRentEnd" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FIOClient" Type="nvarchar" MaxLength="302" Nullable="false" />
+          <Property Name="FIOEmployee" Type="nvarchar" MaxLength="302" Nullable="false" />
+          <Property Name="Product" Type="nvarchar" MaxLength="100" />
+          <Property Name="TimeRent" Type="datetime" Nullable="false" />
+          <Property Name="TimeRentEnd" Type="datetime" Nullable="false" />
+          <Property Name="isDelete" Type="bit" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="tagDeadline" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -146,7 +166,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassportClient_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PassportClient" Type="Self.PassportClient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -158,7 +180,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassportClient_Passport">
-          <End Role="Passport" Type="Self.Passport" Multiplicity="1" />
+          <End Role="Passport" Type="Self.Passport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PassportClient" Type="Self.PassportClient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Passport">
@@ -218,6 +242,12 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="getDeadline" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="DateEndRent" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="getDeadlineProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateEndRent" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -259,6 +289,19 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rentList" EntityType="Self.rentList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [rentList].[ID] AS [ID], 
+    [rentList].[FIOClient] AS [FIOClient], 
+    [rentList].[FIOEmployee] AS [FIOEmployee], 
+    [rentList].[Product] AS [Product], 
+    [rentList].[TimeRent] AS [TimeRent], 
+    [rentList].[TimeRentEnd] AS [TimeRentEnd], 
+    [rentList].[isDelete] AS [isDelete], 
+    [rentList].[Cost] AS [Cost], 
+    [rentList].[tagDeadline] AS [tagDeadline]
+    FROM [dbo].[rentList] AS [rentList]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -331,6 +374,9 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="getDeadlineProc">
+          <Parameter Name="DateEndRent" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <EntitySet Name="Client" EntityType="DBRentEquipmentModel.Client" />
           <EntitySet Name="Employee" EntityType="DBRentEquipmentModel.Employee" />
           <EntitySet Name="Gender" EntityType="DBRentEquipmentModel.Gender" />
@@ -341,6 +387,7 @@
           <EntitySet Name="Role" EntityType="DBRentEquipmentModel.Role" />
           <EntitySet Name="sysdiagrams" EntityType="DBRentEquipmentModel.sysdiagrams" />
           <EntitySet Name="TypeProduct" EntityType="DBRentEquipmentModel.TypeProduct" />
+          <EntitySet Name="rentList" EntityType="DBRentEquipmentModel.rentList" />
           <AssociationSet Name="FK_Client_Gender" Association="DBRentEquipmentModel.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -511,6 +558,24 @@
           <Property Name="img" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Product" Relationship="DBRentEquipmentModel.FK_Product_TypeProduct" FromRole="TypeProduct" ToRole="Product" />
         </EntityType>
+        <EntityType Name="rentList">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FIOClient" />
+            <PropertyRef Name="FIOEmployee" />
+            <PropertyRef Name="TimeRent" />
+            <PropertyRef Name="TimeRentEnd" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FIOClient" Type="String" Nullable="false" MaxLength="302" FixedLength="false" Unicode="true" />
+          <Property Name="FIOEmployee" Type="String" Nullable="false" MaxLength="302" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TimeRent" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeRentEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isDelete" Type="Boolean" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="tagDeadline" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK_Client_Gender">
           <End Type="DBRentEquipmentModel.Gender" Role="Gender" Multiplicity="1" />
           <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="*" />
@@ -524,7 +589,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassportClient_Client">
-          <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Client" Role="Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="DBRentEquipmentModel.PassportClient" Role="PassportClient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -584,7 +651,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassportClient_Passport">
-          <End Type="DBRentEquipmentModel.Passport" Role="Passport" Multiplicity="1" />
+          <End Type="DBRentEquipmentModel.Passport" Role="Passport" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="DBRentEquipmentModel.PassportClient" Role="PassportClient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Passport">
@@ -649,6 +718,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DBRentEquipmentModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DBRentEquipmentModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="getDeadlineProc" FunctionName="Хранилище DBRentEquipmentModel.getDeadlineProc" />
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="DBRentEquipmentModel.Client">
               <MappingFragment StoreEntitySet="Client">
@@ -763,6 +833,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="rentList">
+            <EntityTypeMapping TypeName="DBRentEquipmentModel.rentList">
+              <MappingFragment StoreEntitySet="rentList">
+                <ScalarProperty Name="tagDeadline" ColumnName="tagDeadline" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="TimeRentEnd" ColumnName="TimeRentEnd" />
+                <ScalarProperty Name="TimeRent" ColumnName="TimeRent" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="FIOEmployee" ColumnName="FIOEmployee" />
+                <ScalarProperty Name="FIOClient" ColumnName="FIOClient" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -784,6 +869,29 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram DiagramId="f001070792c94a01a531dfb871545690" Name="Diagram1">
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Client" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Employee" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Gender" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Passport" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.PassportClient" Width="1.5" PointX="5.25" PointY="9.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Product" Width="1.5" PointX="3" PointY="13.875" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Rent" Width="1.5" PointX="5.25" PointY="4.875" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.Role" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.TypeProduct" Width="1.5" PointX="0.75" PointY="14.625" />
+        <EntityTypeShape EntityType="DBRentEquipmentModel.rentList" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Client_Gender" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_PassportClient_Client" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Rent_Client" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Employee1_Gender" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Employee1_Role" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Rent_Employee" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_PassportClient_Passport" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Product_TypeProduct" />
+        <AssociationConnector Association="DBRentEquipmentModel.FK_Rent_Product" />
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>

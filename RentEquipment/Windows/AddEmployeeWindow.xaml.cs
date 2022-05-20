@@ -60,19 +60,37 @@ namespace RentEquipment.Windows
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-
-
-
+            //Validation
             if (string.IsNullOrWhiteSpace(tbFirstName.Text))
             {
                 MessageBox.Show("Введите  имя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (ClassHelper.Validation.validationFIO(tbFirstName.Text) == false)
+            {
+                MessageBox.Show("Некорректное имя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(tbLastName.Text))
             {
                 MessageBox.Show("Введите  фамилию", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (ClassHelper.Validation.validationFIO(tbLastName.Text) == false)
+            {
+                MessageBox.Show("Некорректная фамилия", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (tbPatronymicName.Text != "")
+            {
+                if (ClassHelper.Validation.validationFIO(tbPatronymicName.Text) == false)
+                {
+                    MessageBox.Show("Некорректное отчество", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
             if (string.IsNullOrWhiteSpace(tbLoginName.Text))
             {
                 MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -95,9 +113,9 @@ namespace RentEquipment.Windows
                 MessageBox.Show("Введите телефон", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (cbGender.SelectedIndex < 0)
+            if (ClassHelper.Validation.validationNum(tbPhone.Text) == false)
             {
-                MessageBox.Show("Выберите гендер  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Некорректный телефон", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (tbPhone.Text.Length < 12)
@@ -105,6 +123,12 @@ namespace RentEquipment.Windows
                 MessageBox.Show("Введите телефон полностью", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (cbGender.SelectedIndex < 0)
+            {
+                MessageBox.Show("Выберите гендер  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+           
 
 
 

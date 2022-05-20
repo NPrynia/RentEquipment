@@ -10,22 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using RentEquipment.EF;
 using RentEquipment.Windows;
+using RentEquipmentLibrary;
 
-namespace RentEquipment.Windows
+namespace RentEquipment.Pages
 {
-    
     /// <summary>
-    /// Логика взаимодействия для OutputEquipmentWindow.xaml
+    /// Логика взаимодействия для OutputEquipmentPage.xaml
     /// </summary>
-    public partial class OutputEquipmentWindow : Window
+    public partial class OutputEquipmentPage : Page
     {
-        public OutputEquipmentWindow()
+        
+
+        public OutputEquipmentPage()
         {
             InitializeComponent();
-
             dpDateStartRent.SelectedDate = DateTime.Today;
             dpDateEndRent.DisplayDateStart = DateTime.UtcNow;
             dpDateEndRent.DisplayDateEnd = DateTime.UtcNow.AddMonths(6);
@@ -34,7 +35,7 @@ namespace RentEquipment.Windows
             var productCollection = ClassHelper.AppData.Context.Product.Where(i => i.IsRent == false).ToList();
 
 
-            var employees = from p in employeeCollection select new {p.FIO }.FIO;
+            var employees = from p in employeeCollection select new { p.FIO }.FIO;
 
             var clietns = from p in clientCollection select new { p.FIO }.FIO;
 
@@ -46,8 +47,16 @@ namespace RentEquipment.Windows
 
             cbProduct.ItemsSource = products.ToList();
 
+           
+
+           
         }
 
+
+        /// <summary>
+        /// Event for changing CoomboBoxText
+        /// Search Employee
+        /// </summary>
         void cbFIOEmployee_TextChanged(object sender, RoutedEventArgs e)
         {
             cbFIOEmployee.IsDropDownOpen = true;
@@ -56,20 +65,46 @@ namespace RentEquipment.Windows
             CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(cbFIOEmployee.ItemsSource);
             cv.Filter = s =>
                 ((string)s).IndexOf(cbFIOEmployee.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
-            
+
         }
 
+        /// <summary>
+        /// Event for changing CoomboBoxText
+        /// Search product
+        /// rentCost depand prooduct and Date rent
+        /// </summary>
         private void cbProduct_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var productCollection = ClassHelper.AppData.Context.Product.ToList();
+
+            var cost = from p in productCollection
+                       where p.Product1 == cbProduct.Text
+                       select new { p.Cost }.Cost;
+
             cbProduct.IsDropDownOpen = true;
             var tb = (TextBox)e.OriginalSource;
             tb.Select(tb.SelectionStart + tb.SelectionLength, 0);
             CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(cbProduct.ItemsSource);
             cv.Filter = s =>
                 ((string)s).IndexOf(cbProduct.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
-            tbCost.Text = Convert.ToString(costRent());
+
+            try
+            {
+                DateTime start = DateTime.Parse(Convert.ToString(dpDateStartRent.SelectedDate));
+                DateTime end = DateTime.Parse(Convert.ToString(dpDateEndRent.SelectedDate));
+                tbCost.Text = Convert.ToString(Convert.ToString(RentEquipmentLibrary.ClassForRent.costRent(start, end, cost.ToList()[0])));
+            }
+            catch
+            { 
+
+            }
+        
         }
 
+        /// <summary>
+        /// Event for changing CoomboBoxText
+        /// Search Client
+        /// </summary>
         private void cbFIOClient_TextChanged(object sender, TextChangedEventArgs e)
         {
             cbFIOClient.IsDropDownOpen = true;
@@ -79,6 +114,7 @@ namespace RentEquipment.Windows
             cv.Filter = s =>
                 ((string)s).IndexOf(cbFIOClient.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
         }
+
 
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {
@@ -92,6 +128,17 @@ namespace RentEquipment.Windows
             addClientWindow.ShowDialog();
         }
 
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddEquipmentWindow addEquipmentWindow = new AddEquipmentWindow();
+            addEquipmentWindow.ShowDialog();
+        }
+
+        /// <summary>
+        /// Add rent
+        /// </summary>
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             //Validation
@@ -100,23 +147,24 @@ namespace RentEquipment.Windows
             var productCollection = ClassHelper.AppData.Context.Product.ToList();
             var rentCollection = ClassHelper.AppData.Context.Rent.ToList();
 
+            if (cbProduct.SelectedIndex < 0)
+            {
+                MessageBox.Show("Выберите товар  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             var IDProduct = from p in productCollection
                             where p.Product1 == cbProduct.Text
                             select new { p.ID }.ID;
 
-            var authUser = ClassHelper.AppData.Context.Rent.ToList().
+            var product = ClassHelper.AppData.Context.Rent.ToList().
                  Where(i => i.isDelete == false && i.IDProduct == IDProduct.ToList()[0]).
                  FirstOrDefault();
 
-            if (authUser != null)
+            if (product != null)
             {
                 MessageBox.Show("Товар находится в аренде", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            }
-            if (authUser != null)
-            {
-
             }
 
             if (cbFIOEmployee.SelectedIndex < 0)
@@ -130,26 +178,31 @@ namespace RentEquipment.Windows
                 MessageBox.Show("Выберите клиента  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
-            if (cbProduct.SelectedIndex < 0)
-            {
-                MessageBox.Show("Выберите товар  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            if (dpDateEndRent.DisplayDate == null)
+            
+
+            if (dpDateEndRent.SelectedDate == null)
             {
                 MessageBox.Show("Выберите дату аренды  ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
+
 
             var IDemployees = from p in employeeCollection
-                            where p.FIO == cbFIOEmployee.Text
-                            select new { p.ID }.ID;
+                              where p.FIO == cbFIOEmployee.Text
+                              select new { p.ID }.ID;
+
             var IDClient = from p in clientCollection
                            where p.FIO == cbFIOClient.Text
-                              select new { p.ID }.ID;
+                           select new { p.ID }.ID;
+
+
+            var cost = from p in productCollection
+                       where p.Product1 == cbProduct.Text
+                       select new { p.Cost }.Cost;
+
+            DateTime start = DateTime.Parse(Convert.ToString(dpDateStartRent.SelectedDate));
+            DateTime end = DateTime.Parse(Convert.ToString(dpDateEndRent.SelectedDate));
 
 
 
@@ -161,28 +214,53 @@ namespace RentEquipment.Windows
             addRent.isDelete = false;
             addRent.TimeRent = (DateTime)dpDateStartRent.SelectedDate;
             addRent.TimeRentEnd = (DateTime)dpDateEndRent.SelectedDate;
-            addRent.Cost = costRent();
+            addRent.Cost = RentEquipmentLibrary.ClassForRent.costRent(start, end, cost.ToList()[0]);
             ClassHelper.AppData.Context.Rent.Add(addRent);
-            MessageBox.Show("Аренда добавлена");
-
 
             var editProduct = ClassHelper.AppData.Context.Product.ToList().
                  Where(i => i.ID == IDProduct.ToList()[0]).FirstOrDefault();
 
             editProduct.IsRent = true;
             ClassHelper.AppData.Context.SaveChanges();
+
+            MessageBox.Show("Аренда добавлена");
+            var productCollectionForCb = ClassHelper.AppData.Context.Product.Where(i => i.IsRent == false).ToList();
+            var products = from p in productCollectionForCb select new { p.Product1 }.Product1;
+            cbProduct.ItemsSource = products.ToList();
         }
 
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
-        {
 
-            AddEquipmentWindow addEquipmentWindow = new AddEquipmentWindow();
-            addEquipmentWindow.ShowDialog();
-        }
+      
 
-        public decimal costRent()
+
+        //public decimal costRent()
+        //{
+        //    decimal costRent = 0;
+         
+
+        //    try
+        //    {
+        //        costRent = cost.ToList()[0];
+        //        DateTime start = DateTime.Parse(Convert.ToString(dpDateStartRent.SelectedDate));
+        //        DateTime end = DateTime.Parse(Convert.ToString(dpDateEndRent.SelectedDate));
+        //        double qtyDay = (end - start).TotalDays;
+        //        if (qtyDay == 0)
+        //        {
+        //            qtyDay = 1;
+        //        }
+        //        return Math.Round((decimal)(costRent * 5 / 100)) * Convert.ToInt32(qtyDay);
+        //    }
+        //    catch
+        //    {
+        //        return 0;
+        //    }
+
+
+        //}
+
+
+        private void dpDateEndRent_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            decimal costRent = 0;
             var productCollection = ClassHelper.AppData.Context.Product.ToList();
 
             var cost = from p in productCollection
@@ -191,28 +269,16 @@ namespace RentEquipment.Windows
 
             try
             {
-                costRent = cost.ToList()[0];
                 DateTime start = DateTime.Parse(Convert.ToString(dpDateStartRent.SelectedDate));
                 DateTime end = DateTime.Parse(Convert.ToString(dpDateEndRent.SelectedDate));
-                double qtyDay = (end - start).TotalDays;
-                if (qtyDay == 0)
-                {
-                    qtyDay = 1;
-                }
-                return Math.Round((decimal)(costRent * 5 / 100)) * Convert.ToInt32(qtyDay);
+
+                tbCost.Text = Convert.ToString(RentEquipmentLibrary.ClassForRent.costRent(start, end, cost.ToList()[0]));
             }
             catch
             {
-                return 0;
-            }
 
+            }
           
         }
-
-        private void dpDateEndRent_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            tbCost.Text = Convert.ToString(costRent());
-        }
     }
-
 }

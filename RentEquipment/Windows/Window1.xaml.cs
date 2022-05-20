@@ -24,4 +24,37 @@ namespace RentEquipment.Windows
             InitializeComponent();
         }
     }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+    public class People : List<Person> { }
+
+    public class MyTempConverter : IValueConverter
+    {
+
+        #region IValueConverter Members
+
+        object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (Convert.ToInt32(value) > 25)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }

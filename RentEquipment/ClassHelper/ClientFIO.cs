@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace RentEquipment.EF
 {
-    using System;
-    using System.Collections.Generic;
+   
 
     public partial class Client
     {

@@ -105,6 +105,7 @@
             <Button x:Name="btnAddImg"
                 Click="btnAddImg_Click"
                 Width="200" Height="30"
+                Foreground="Black"
                 Background="Transparent"
                 Content="Выбрать изображение"
             />
@@ -188,7 +189,7 @@
             Grid.ColumnSpan="2"
             Width="200" Height="60"
             FontSize="20"
-            Background="#FFDBDBDB"
+            Background="#FF3D3D3D"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             

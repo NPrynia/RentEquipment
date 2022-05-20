@@ -1,25 +1,31 @@
-﻿<Window x:Class="RentEquipment.Windows.ListClientWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RentEquipment.Windows"
+﻿<Page x:Class="RentEquipment.Pages.ListClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RentEquipment.Pages"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="ListClientWindow" Height="800" Width="1200"
+     
+        Title="ListClientWindow"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-    ui:WindowHelper.UseModernWindowStyle="True"
         >
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
 
+        <TextBlock
+            Text="Список клиентов"
+            FontWeight="Light"
+            TextAlignment="Center"
+            FontSize="40"
+            
+            />
 
         <WrapPanel   
            
@@ -36,49 +42,39 @@
             <TextBox
                 x:Name="tbSearch" 
                 TextChanged="tbSearch_TextChanged"
-                FontSize="23"
+                FontSize="20"
+                Background="Transparent"
                 FontWeight="Light"
                 Margin="10 0 0 0"
                 Width="250"
                 Height="42"
-                BorderThickness="0"
-                Background="#FFDBDBDB"
+                BorderThickness="1"
                
                 />
             <TextBlock
                 Text="Сортировать:"
-                   FontSize="30"
-                
+                FontSize="30"
                 FontWeight="Light"
                 Margin="10 0 0 0"
                 
                 />
             <ComboBox
                 x:Name="cbSort"
-                FontSize="25"
+                FontSize="20"
                 FontWeight="Light"
                 Margin="10 0 0 0"
                 Width="250"
                 Height="42"
-                Background="#FFDBDBDB"
-                BorderThickness="0"
                 SelectionChanged="cbSort_SelectionChanged"
                 
                 />
 
         </WrapPanel>
 
-        <TextBlock
-           Text="Список клиентов"
-           FontSize="30"
-           FontWeight="Light"
-           TextAlignment="Center"
-           FontFamily="helvetica"
-            
-            ></TextBlock>
-
         <ListView
             Grid.Row="2"
+            MouseDoubleClick="lvClient_MouseDoubleClick"
+            KeyDown="lvClient_KeyUp"
             x:Name="lvClient">
             <ListView.View>
                 <GridView>
@@ -98,12 +94,11 @@
             >
             <StackPanel 
            
-            Grid.Row="4"
+            Grid.Row="3"
             HorizontalAlignment="Center"
             Orientation="Horizontal"
                     >
                 <Button
-                
                 x:Name="btnDel"
                 Click="btnDel_Click"
             Content="Удалить клиента"
@@ -112,9 +107,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Width="250"
-            Height="42"     
-            Background="#FFDBDBDB"
-           
+            Height="42"  
                  Margin="00 0 20 0 "
             />
                 <Button
@@ -122,8 +115,7 @@
                Click="btnChange_Click"
             Content="Изменить клиента"
             Grid.Row="3"
-            FontSize="15"
-           Background="#FFDBDBDB"         
+            FontSize="15"      
            HorizontalAlignment="Center"
            VerticalAlignment="Center"
            Width="250"
@@ -134,18 +126,17 @@
                 <Button
                 x:Name="btnAdd"
             Content="Добавить клиента"
-            Grid.Row="3"
+            Grid.Row="4"
             FontSize="15"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Click="Button_Click"
+            Click="btnAdd_Click"
             Width="250"
             Height="42"     
-            Background="#FFDBDBDB"
            
             />
             </StackPanel>
 
         </Border>
     </Grid>
-</Window>
+</Page>

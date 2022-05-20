@@ -6,90 +6,83 @@
         xmlns:local="clr-namespace:RentEquipment"
         x:Class="RentEquipment.MainWindow"
         mc:Ignorable="d"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="800" Width="1200"
+        Title="Аренда оборудования" Height="1000" Width="1590"
 	xmlns:ui="http://schemas.modernwpf.com/2019"
-    ui:WindowHelper.UseModernWindowStyle="True"
+    fw:AcrylicWindow.Enabled="True"
+    fw:AcrylicWindow.FallbackColor="#000000"
+    fw:AcrylicWindow.AcrylicAccentState="AcrylicBlurBehind"
+    fw:AcrylicWindow.TintColor="#000000"
+    fw:AcrylicWindow.AcrylicWindowStyle="None"
+    ResizeMode="CanResizeWithGrip"
+    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
 >
 
 
     <Grid>
-       
+        
+        <ui:NavigationView x:Name="nv"
+                       PaneDisplayMode="Auto"
+                       IsSettingsVisible="False"
+                       ItemInvoked="nv_ItemInvoked"
+                       PaneTitle="Аренда оборудования"
+                       OpenPaneLength="300" 
+                       IsBackButtonVisible="Collapsed" 
+                       >
 
 
-        <TextBlock
-           Text="Добро пожаловать"
-           FontSize="70"
-           FontWeight="Light"
-           VerticalAlignment="Top"
-            Margin="0 20 0 0"
-           TextAlignment="Center"
-           FontFamily="helvetica"
-            />
-        <WrapPanel HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Orientation="Vertical"
-                   >
-            <Button
-                x:Name="btnEmployee"
-                Click="btnEmployee_Click"   
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                Icon="ContactInfo"
+                FontSize="18"
                 Content="Список сотрудников"
-                FontWeight="Light"
-                FontSize="50"
-                FontFamily="helvetica"
-                Width="600"
-                Height="100"
-                HorizontalAlignment="Center"
+                Tag="Список сотрудников"
                 />
-            <Button
-                x:Name="btnClient"
-                Click="btnClient_Click"
+                <ui:NavigationViewItem
+                Icon="People"
+                FontSize="18"
                 Content="Список клиентов"
-                FontWeight="Light"
-                FontSize="50"
-                FontFamily="helvetica"
-                Width="600"
-                Height="100"
-                Margin="5"
+                Tag="Список клиентов"
                 />
-            <Button
-                x:Name="btnEquipment"
-                Click="btnEquipment_Click"
+                <ui:NavigationViewItem
+                Icon="Repair"
+                FontSize="18"
                 Content="Список оборудования"
-                FontWeight="Light"
-                FontSize="50"
-                FontFamily="helvetica"
-                Width="600"
-                Height="100"
-                Margin="5"
+                Tag="Список оборудования"
                 />
-            <Button
-                x:Name="btnListRent"
+                <ui:NavigationViewItem
+                Icon="AllApps"
+                FontSize="18"
                 Content="Список аренды"
-                FontWeight="Light"
-                FontSize="50"
-                FontFamily="helvetica"
-                Width="600"
-                Height="100"
-                Margin="5" 
+                Tag="Список аренды"
                 />
-            <Button
-                x:Name="btnRent"
-                Click="btnRent_Click"
+                <ui:NavigationViewItem
+                Icon="Add"
+                FontSize="18"    
                 Content="Оформить аренду"
-                FontWeight="Light"
-                FontSize="50"
-                FontFamily="helvetica"
-                Width="600"
-                Height="100"
-                Margin="5" 
+                Tag="Оформить аренду"
+                
                 />
-            
+            </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Content="Выход" Tag="Выход" Icon="Clear" />
 
-        </WrapPanel>
-     
+            </ui:NavigationView.FooterMenuItems>
+            <Grid>
+                <ui:Frame  Background="#ffffff"  x:Name="contentFrame"/>
+                <Border  HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Height="50"
+                 Background="Transparent"
+                 MouseDown="Window_MouseDown" >
+                </Border>
+            </Grid>
 
-
-
+        </ui:NavigationView>
+        
     </Grid>
+
+
+
 </Window>

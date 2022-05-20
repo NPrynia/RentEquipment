@@ -5,6 +5,15 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentEquipment", "RentEquipment\RentEquipment.csproj", "{6AE731DB-5456-446C-98E6-8022C96D657B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1289C734-A8D2-4DAD-8031-BD3DAA77DA7C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentEquipmentLibrary", "RentEquipmentLibraryyy\RentEquipmentLibrary.csproj", "{7A302523-3912-41AA-9628-8369FE6CDE2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestRentEquipmentLibrary", "UnitTestRentEquipmentLibrary\UnitTestRentEquipmentLibrary.csproj", "{825C8CE6-B3B3-496F-A293-F1F5EC8BD076}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +24,14 @@ Global
 		{6AE731DB-5456-446C-98E6-8022C96D657B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE731DB-5456-446C-98E6-8022C96D657B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE731DB-5456-446C-98E6-8022C96D657B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A302523-3912-41AA-9628-8369FE6CDE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A302523-3912-41AA-9628-8369FE6CDE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A302523-3912-41AA-9628-8369FE6CDE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A302523-3912-41AA-9628-8369FE6CDE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825C8CE6-B3B3-496F-A293-F1F5EC8BD076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825C8CE6-B3B3-496F-A293-F1F5EC8BD076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825C8CE6-B3B3-496F-A293-F1F5EC8BD076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825C8CE6-B3B3-496F-A293-F1F5EC8BD076}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,14 +4,35 @@
              xmlns:local="clr-namespace:RentEquipment"
              StartupUri="Windows/MainWindow.xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
              >
     <Application.Resources>
         <ResourceDictionary>
+            <SolidColorBrush x:Key="CColor" Color="{ui:DynamicColor SystemAccentColorLight1}"/>
+
+
+            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="NavigationViewItemForeground" Color="#bbbbbb" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="White" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="White" />
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="White" />
+            <SolidColorBrush x:Key="ButtonBackground" Color="#3d3d3d" />
+            <SolidColorBrush x:Key="ButtonForeground" Color="White" />
+            <SolidColorBrush x:Key="ComboBoxBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="TextBoxBackground" Color="Transparent" />
+
+
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
                 
-                <ui:ThemeResources />
+
+
+                <ui:ThemeResources>
+                </ui:ThemeResources>
                 <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

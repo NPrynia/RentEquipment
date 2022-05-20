@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,46 +26,62 @@ namespace RentEquipment
         public MainWindow()
         {
             InitializeComponent();
-        }
+            contentFrame.Navigate(new Pages.OutputEquipmentPage());
 
-        private void btnEmployee_Click(object sender, RoutedEventArgs e)
+        }
+       
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ListEmployeeWindow employeeWindow = new ListEmployeeWindow();
-            this.Hide();
-            employeeWindow.ShowDialog();
-            this.Show();
-
+            //svPanel.IsPaneOpen = !svPanel.IsPaneOpen;
         }
 
-        private void btnClient_Click(object sender, RoutedEventArgs e)
+        private void nv_ItemInvoked(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            
-            ListClientWindow listClientWindow = new ListClientWindow();
-            this.Hide();
-            listClientWindow.ShowDialog();
-            this.Show();
-            
+
+            if (args.IsSettingsInvoked == true)
+            {
+            }
+            else if (args.InvokedItemContainer != null)
+            {
+                var navItemTag = args.InvokedItemContainer.Tag.ToString();
+                switch (navItemTag)
+                {
+                    case "Список сотрудников":
+                        contentFrame.Navigate(new Pages.ListEmployeePage());
+                        break;
+                    case "Список клиентов":
+                        contentFrame.Navigate(new Pages.ListClientPage() );
+                        break;
+                    case "Список оборудования":
+                        contentFrame.Navigate(new Pages.ListEquipmentPage(), null);
+                        break;
+                    case "Список аренды":
+                        contentFrame.Navigate(new Pages.ListRentPage(), null);
+                        break;
+                    case "Оформить аренду":
+                        contentFrame.Navigate(new Pages.OutputEquipmentPage(), null);
+                        break;
+                    case "Выход":
+                        this.Close();
+                        break;
 
 
+                }
+            }
         }
 
-        private void btnEquipment_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            FlyoutBase.ShowAttachedFlyout(this);    
-
-            ListEquimentWindow listEquimentWindow = new ListEquimentWindow();
-            this.Hide();
-            listEquimentWindow.ShowDialog();
-            this.Show();
+            try
+            {
+                DragMove();
+            }
+            catch
+            { 
+            }
         }
 
-        private void btnRent_Click(object sender, RoutedEventArgs e)
-        {
-            OutputEquipmentWindow outputEquipmentWindow = new OutputEquipmentWindow();
-            this.Hide();
-            outputEquipmentWindow.ShowDialog();
-            this.Show();
-;
-        }
+       
     }
 }

@@ -31,6 +31,7 @@
             <ColumnDefinition Width="339*"/>
         </Grid.ColumnDefinitions>
 
+        <!--Head-->
         <TextBlock
             Name="tbTitle"
             Text="Добавление клиента"
@@ -43,8 +44,9 @@
             Margin="0,5"
             />
 
-        <!---->
+        <!--Center-->
 
+        <!--LeftColumn-->
         <TextBlock
                 Text="Имя:"
                 Grid.Row="1"
@@ -75,7 +77,7 @@
                 FontFamily="helvetica"
                 />
         <TextBlock
-                Text="Логин:"
+                Text="Серия паспорта:"
                 HorizontalAlignment="Right"
                 Grid.Row="4"
                 VerticalAlignment="Center"
@@ -84,7 +86,7 @@
                 FontFamily="helvetica"
                 />
         <TextBlock
-                Text="Пароль:"
+                Text="Номер паспорта:"
                 HorizontalAlignment="Right"
                 Grid.Row="5"
                 VerticalAlignment="Center"
@@ -93,7 +95,7 @@
                 FontFamily="helvetica"
                 />
         <TextBlock
-                Text="Подтвердите пароль:"
+                Text="Телефон:"
                 HorizontalAlignment="Right"
                 Grid.Row="6"
                 VerticalAlignment="Center"
@@ -101,18 +103,10 @@
                 FontWeight="Light"
                 FontFamily="helvetica"
                 />
+      
         <TextBlock
-                Text="Роль:"
-                HorizontalAlignment="Right"
+                Text="Email:"
                 Grid.Row="7"
-                VerticalAlignment="Center"
-                FontSize="25"
-                FontWeight="Light"
-                FontFamily="helvetica"
-                />
-        <TextBlock
-                Text="Телефон:"
-                Grid.Row="8"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 FontSize="25"
@@ -121,6 +115,15 @@
                 />
         <TextBlock
                 Text="Гендер:"
+                Grid.Row="8"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontWeight="Light"
+                FontFamily="helvetica"
+                />
+        <TextBlock
+                Text="День рождение:"
                 Grid.Row="9"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
@@ -130,7 +133,7 @@
                 />
 
 
-
+<!--RightColumn-->
         <TextBox
             x:Name="tbFirstName"
                 Grid.Row="1"
@@ -170,7 +173,7 @@
                 FontFamily="helvetica"
                 />
         <TextBox
-            x:Name="tbLoginName"
+            x:Name="tbSerial"
                 Grid.Row="4"
                 Width="350"
                 Grid.Column="1"
@@ -181,8 +184,8 @@
                 FontWeight="Light"
                 FontFamily="helvetica"
                 />
-        <PasswordBox
-            x:Name="passPasswordName"
+        <TextBox
+            x:Name="tbNumber"
                 Grid.Row="5"
                 Width="350"
                 Grid.Column="1"
@@ -193,11 +196,13 @@
                 FontWeight="Light"
                 FontFamily="helvetica"
                 />
-        <PasswordBox
-            x:Name="passRepitPasswordName"
+        <TextBox
+            x:Name="tbPhone"
                 Grid.Row="6"
                 Width="350"
                 Grid.Column="1"
+                MaxLength="12"
+                KeyDown="tbPhone_KeyDown"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Margin="15 0 0 0 "
@@ -205,22 +210,10 @@
                 FontWeight="Light"
                 FontFamily="helvetica"
                 />
-        <ComboBox
-            x:Name="cbRole"
-                Grid.Row="7"
-                Width="350"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="15 0 0 0 "
-                FontSize="25"
-                FontWeight="Light"
-                FontFamily="helvetica" 
-    
-                />
+        
         <TextBox
-                 x:Name="tbPhone"
-                Grid.Row="8"
+                 x:Name="tbEmail"
+                Grid.Row="7"
                 MaxLength="12"
                 Width="350"
                 Grid.Column="1"
@@ -236,7 +229,7 @@
 
         <ComboBox
                x:Name="cbGender"
-                Grid.Row="9"
+                Grid.Row="8"
                 Width="350"
                 Grid.Column="1"
                 VerticalAlignment="Center"
@@ -247,15 +240,23 @@
                 FontFamily="helvetica"
                 />
 
+        <DatePicker
+              Grid.Row="9" Grid.Column="2"
+              Name="dpBirthday"
+              FontSize="25"
+              Margin="15 0 0 0 "
+            />
 
 
+        <!--Bottom-->
         <Button  
             x:Name="btnChangeAdd"
             Grid.Row="10"
+            Click="btnChangeAdd_Click"
             Grid.ColumnSpan="2"
             Width="200"
             FontSize="20"
-            Background="#FFDBDBDB"
+            Background="#FF3D3D3D"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Height="60"

@@ -37,6 +37,7 @@ namespace RentEquipment.EF
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TypeProduct> TypeProduct { get; set; }
+        public virtual DbSet<rentList> rentList { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -139,6 +140,15 @@ namespace RentEquipment.EF
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int getDeadlineProc(Nullable<System.DateTime> dateEndRent)
+        {
+            var dateEndRentParameter = dateEndRent.HasValue ?
+                new ObjectParameter("DateEndRent", dateEndRent) :
+                new ObjectParameter("DateEndRent", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("getDeadlineProc", dateEndRentParameter);
         }
     }
 }
